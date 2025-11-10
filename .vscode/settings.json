@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"libfcollector.h": "c",
+		"random": "c",
+		"queue": "c"
+	}
+}
