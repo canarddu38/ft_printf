@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by kali              #+#    #+#             */
-/*   Updated: 2025/11/10 23:34:24 by kali             ###   ########lyon.fr   */
+/*   Updated: 2025/11/10 23:46:25 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static int	print_format(char *type, va_list args)
 	}
 	else if (type[1] == 'd' || type[1] == 'i')
 	{
-		ft_putnbr_fd(va_arg(args, int), 1);
+		output_len = (size_t)va_arg(args, int);
+		ft_putnbr_fd(output_len, 1);
+		while ()
 	}
 	return (1);
 }
