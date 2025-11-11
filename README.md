@@ -17,4 +17,7 @@ Because ft_putnbr() and ft_putstr() aren’t enough
 - `%X` Prints a number in hexadecimal (base 16) uppercase format.
 - `%%` Prints a percent sign.
 
+## Know Bugs
+- [x] `%u` may have an underflow error (possible type cast issue).
+
 ## By 0x262d - Nov 2025

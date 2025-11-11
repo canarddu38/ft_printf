@@ -6,53 +6,36 @@
 /*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by kali              #+#    #+#             */
-/*   Updated: 2025/11/11 23:38:26 by kali             ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 00:28:30 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	display_hex(size_t nb, int in_lowercase)
-{
-	char	output;
-	int		len;
-
-	len = 0;
-	if (nb >= 16)
-		len += display_hex(nb / 16, in_lowercase);
-	output = nb % 16;
-	if (output >= 10)
-		output = (output - 10) + ('A' + 32 * (in_lowercase != 0));
-	else
-		output = output + '0';
-	ft_putchar_fd(output, 1);
-	return (len + 1);
-}
-
-static int	print_format(char *type, va_list args)
+int	print_format(t_format f, va_list args)
 {
 	unsigned int	i;
 
-	if (!type || !type[1])
+	if (!f.type)
 		return (-1);
-	if (type[1] == '%')
+	if (f.type == '%')
 		return (ft_putchar_count('%'));
-	else if (type[1] == 'c')
+	else if (f.type == 'c')
 		return (ft_putchar_count((char)va_arg(args, int)));
-	else if (type[1] == 's')
+	else if (f.type == 's')
 		return (ft_putstr_count(va_arg(args, char *)));
-	else if (type[1] == 'd' || type[1] == 'i')
+	else if (f.type == 'd' || f.type == 'i')
 		return (ft_putnbr_count((int)va_arg(args, int)));
-	else if (type[1] == 'u')
+	else if (f.type == 'u')
 		return (ft_uint_putnbr_count((unsigned int)va_arg(args, int)));
-	else if (type[1] == 'p')
+	else if (f.type == 'p')
 		return (ft_putptr_count((void *)va_arg(args, void *)));
-	else if (type[1] == 'x' || type[1] == 'X')
+	else if (f.type == 'x' || f.type == 'X')
 	{
 		i = (unsigned int)va_arg(args, unsigned int);
 		if (i == 0)
 			return (ft_putstr_count("0"));
-		return (display_hex(i, (type[1] == 'x')));
+		return (display_hex(i, (f.type == 'x')));
 	}
 	return (-1);
 }
@@ -71,7 +54,7 @@ int	ft_printf(const char *format, ...)
 	{
 		if (((char *)format)[i] == '%')
 		{
-			j = print_format(&((char *)format)[i], args);
+			j = print_format(parse_format(&((char *)format)[i]), args);
 			if (j < 0)
 				return (-1);
 			len += j - 1;
