@@ -1,6 +1,11 @@
 # ft_printf
 Because ft_putnbr() and ft_putstr() aren’t enough
 
+## Format
+```
+    %[flags][width][.precision]type
+```
+
 ## Features
 - `%c` Prints a single character.
 - `%s` Prints a string (as defined by the common C convention).

@@ -3,83 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by kali              #+#    #+#             */
-/*   Updated: 2025/11/11 00:25:45 by kali             ###   ########lyon.fr   */
+/*   Updated: 2025/11/11 15:41:34 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
-#include <stdarg.h> 
+#include "ft_printf.h"
 
-void	display_hex(size_t nb, int in_lowercase)
+int	display_hex(size_t nb, int in_lowercase)
 {
 	char	output;
+	int		len;
 
-	if (nb == 0)
-		return ;
-	display_hex(nb / 16, in_lowercase);
+	len = 0;
+	if (nb >= 16)
+		len += display_hex(nb / 16, in_lowercase);
 	output = nb % 16;
 	if (output >= 10)
-		output += ('A' + 32 * (in_lowercase != 0)) - 10;
+		output = (output - 10) + ('A' + 32 * (in_lowercase != 0));
 	else
-		output += '0';
+		output = output + '0';
 	ft_putchar_fd(output, 1);
+	return (len + 1);
 }
 
 static int	print_format(char *type, va_list args)
 {
+	size_t	written_len;
+	size_t	i;
+	char	*str;
+
+	written_len = 0;
 	if (!type || !type[1])
 		return (-1);
 	if (type[1] == '%')
-		ft_putchar_fd('%', 1);
+		return (ft_putchar_fd_count('%', 1));
 	else if (type[1] == 'c')
-		ft_putchar_fd((char)va_arg(args, int), 1);
+		return (ft_putchar_fd_count((char)va_arg(args, int), 1));
 	else if (type[1] == 's')
-		ft_putstr_fd(va_arg(args, char *), 1);
-	else if (type[1] == 'p')
 	{
-		size_t nb = (size_t)va_arg(args, size_t);
-		if (nb < 0)
-			ft_putchar_fd('-', 1);
-		ft_putstr_fd("0x", 1);
-		display_hex(nb, 1);
+		str = va_arg(args, char *);
+		if (!str)
+			str = "(null)";
+		return (ft_putstr_fd_count(str, 1));
+	}
+	else if (type[1] == 'p' || type[1] == 'x' || type[1] == 'X')
+	{
+		i = (size_t)va_arg(args, size_t);
+		if (i < 0)
+			written_len += ft_putchar_fd_count('-', 1);
+		if (i == 0)
+		{
+			if (type[1] == 'p')
+				return (ft_putstr_fd_count("(nil)", 1));
+			return (ft_putstr_fd_count("0", 1));
+		}
+		if (type[1] == 'p')
+			written_len += ft_putstr_fd_count("0x", 1);
+		return (written_len + display_hex(i, (type[1] == 'p' || type[1] == 'x')));
 	}
 	else if (type[1] == 'd' || type[1] == 'i')
-		ft_putnbr_fd((size_t)va_arg(args, int), 1);
-	return (1);
+		return (ft_putnbr_fd_count((int)va_arg(args, int), 1));
+	else if (type[1] == 'u')
+		return(ft_unsigned_putnbr_fd_count((unsigned int)va_arg(args, int), 1));
+	return (-1);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	char	*output;
 	size_t	i;
 	size_t	j;
+	size_t	written_len;
 
 	i = 0;
+	written_len = 0;
 	va_start(args, format);
 	while (((char *)format)[i])
 	{
-		//printf("=>%c\n", ((char *)format)[i]);
 		if (((char *)format)[i] == '%')
 		{
-			if (print_format(&((char *)format)[i], &args) < 0)
+			j = print_format(&((char *)format)[i], args);
+			if (j < 0)
 				return (-1);
+			written_len += j - 1;
 			i++;
 		}
 		else
 			ft_putchar_fd(((char *)format)[i], 1);
+		written_len++;
 		i++;
 	}
 	va_end(args);
-	return (i);
-}
-
-void	main(void)
-{
-	ft_printf("Hello World! I'm %culcleme and I'm %s\nAnd now I'm a student at %i for the next %d years!\n", 'j', "18 years old!", 42, 5);
-	char	*str = "This str is located at address %p\n";
-	ft_printf(str, str);
+	return (written_len);
 }
