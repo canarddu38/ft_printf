@@ -17,4 +17,4 @@ Because ft_putnbr() and ft_putstr() aren’t enough
 - `%X` Prints a number in hexadecimal (base 16) uppercase format.
 - `%%` Prints a percent sign.
 
-git submodule add https://github.com/canarddu38/libft.git ./libft
+## By 0x262d - Nov 2025

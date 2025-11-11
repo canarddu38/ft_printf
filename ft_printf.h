@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:13:37 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/11 15:41:54 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/11 23:30:33 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 # include "libft.h"
 # include <stdarg.h> 
 
-int	ft_putnbr_fd_count(int nb, int fd);
-int	ft_putstr_fd_count(char *str, int fd);
-int	ft_putchar_fd_count(char c, int fd);
-int	ft_unsigned_putnbr_fd_count(unsigned int nb, int fd);
+int	ft_putnbr_count(int nb);
+int	ft_putstr_count(char *str);
+int	ft_putchar_count(char c);
+int	ft_uint_putnbr_count(unsigned int nb);
+int	ft_putptr_count(void *ptr);
 
 int	ft_printf(const char *format, ...);
 

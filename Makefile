@@ -1,3 +1,4 @@
+CC						= clang
 NAME					= libftprintf.a
 BONUS_DONE				= .bonus_done
 LIBFT_PATH				= libft
@@ -17,7 +18,7 @@ D_FILES					= $(O_FILES_ALL:.o=.d)
 all: $(NAME)
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_PATH) all
+	$(MAKE) CC=$(CC) -C $(LIBFT_PATH) all
 
 $(NAME): $(LIBFT) $(O_FILES)
 	cp $(LIBFT) $(NAME)

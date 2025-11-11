@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   count_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:17:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/11 15:41:19 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/11 23:35:51 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr_fd_count(int nb, int fd)
+int	ft_putnbr_count(int nb)
 {
 	int	i;
 
 	i = 0;
-	ft_putnbr_fd(nb, fd);
+	ft_putnbr_fd(nb, 1);
 	if (nb < 0)
 		i++;
 	if (nb == 0)
@@ -30,25 +30,38 @@ int	ft_putnbr_fd_count(int nb, int fd)
 	return (i);
 }
 
-int	ft_unsigned_putnbr_fd_count(unsigned int nb, int fd)
+int	ft_uint_putnbr_count(unsigned int nb)
 {
 	int	len;
 
 	len = 0;
 	if (nb >= 10)
-		len += ft_unsigned_putnbr_fd_count(nb / 10, fd);
-	ft_putchar_fd((nb % 10) + '0', fd);
+		len += ft_uint_putnbr_count(nb / 10);
+	ft_putchar_fd((nb % 10) + '0', 1);
 	return (len + 1);
 }
 
-int	ft_putstr_fd_count(char *str, int fd)
+int	ft_putstr_count(char *str)
 {
-	ft_putstr_fd(str, fd);
+	if (str == 0)
+		str = "(null)";
+	ft_putstr_fd(str, 1);
 	return (ft_strlen(str));
 }
 
-int	ft_putchar_fd_count(char c, int fd)
+int	ft_putchar_count(char c)
 {
-	ft_putchar_fd(c, fd);
+	ft_putchar_fd(c, 1);
 	return (1);
+}
+int	ft_putptr_count(void *ptr)
+{
+	int	len;
+
+	len = 0;
+	if (!ptr)
+		return (ft_putstr_count("(nil)"));
+	len += ft_putstr_count("0x");
+	len += display_hex((unsigned long)ptr, 1);
+	return (len);
 }
