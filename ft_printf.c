@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by kali              #+#    #+#             */
-/*   Updated: 2025/11/11 15:41:34 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/11 17:46:09 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ static int	print_format(char *type, va_list args)
 	}
 	else if (type[1] == 'p' || type[1] == 'x' || type[1] == 'X')
 	{
-		i = (size_t)va_arg(args, size_t);
+		if (type[1] == 'p')
+			i = (unsigned long long)va_arg(args, void *);
+		else
+			i = (unsigned int)va_arg(args, unsigned int);
 		if (i < 0)
 			written_len += ft_putchar_fd_count('-', 1);
 		if (i == 0)
