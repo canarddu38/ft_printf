@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 16:53:57 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 22:39:05 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
+
+#include "stdio.h"
 int	print_format(t_format f, va_list args)
 {
 	unsigned int	i;
-
+	
 	if (!f.type)
 		return (-1);
 	if (f.type == '%')
@@ -67,11 +69,15 @@ int	ft_printf(const char *format, ...)
 	return (len);
 }
 
-//void	main(void)
-//{
-//	char	*s = "Hello World '%10.5d' '%15.10d' '%.10s' '%7s'\n";
-//	printf(s, -42, 12345, "Hello World", 0);
-//	ft_printf(s, -42, 12345, "Hello World", 0);
+void	main(void)
+{
+	char	*s = "Hello World '%10.5d' '%15.10d' '%.10s' '%7s'\n";
+	printf(s, -42, 12345, "Hello World", 0);
+	ft_printf(s, -42, 12345, "Hello World", 0);
+
+	s = "test2 '%10.5d'\n";
+	printf(s, 42);
+	ft_printf(s, 42);
 	
-//	// check if precision > width -> fill even if width < precision
-//}
+	// check if precision > width -> fill even if width < precision
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_functions_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:17:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 17:23:11 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 22:56:58 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	ft_put_precision_rep(int count)
 	return (i);
 }
 
-int	ft_put_padding_rep(int count)
+int	ft_put_padding_rep(int count, char c)
 {
 	int	i;
 
 	i = 0;
 	while (i < count)
 	{
-		ft_putchar_fd(' ', 1);
+		ft_putchar_fd(c, 1);
 		i++;
 	}
 	return (i);
@@ -45,7 +45,7 @@ int	ft_putnbr_count(int nb, t_format f)
 
 	is_negative = 0;
 	i = number_len(nb);
-	ft_put_padding_rep(f.width - f.precision - (nb < 0));
+	ft_put_padding_rep(f.width - f.precision - (nb < 0), ' ');
 	if (nb < 0)
 	{
 		is_negative = 1;
@@ -77,7 +77,7 @@ int	ft_putstr_count(char *str, t_format f)
 	j = 0;
 	if (str == 0)
 		str = "(null)";
-	i = ft_put_padding_rep(f.width - ft_strlen(str));
+	i = ft_put_padding_rep(f.width - ft_strlen(str) ,' ');
 	while (i < f.width)
 	{
 		i++;
@@ -90,7 +90,7 @@ int	ft_putchar_count(char c, t_format f)
 {
 	int	i;
 
-	i = ft_put_padding_rep(f.width - 1) + 1;
+	i = ft_put_padding_rep(f.width - 1, ' ') + 1;
 	ft_putchar_fd(c, 1);
 	return (i);
 }
