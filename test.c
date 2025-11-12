@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:15:36 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 00:33:47 by kali             ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 10:11:02 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 void    test(int a, int b)
 {
     if (a != b)
+	{
+		printf("\e[31mTEST FAILED!\e[0m\n");
         exit(1);
+	}
 }
 
 int main(void)
@@ -204,6 +207,8 @@ int main(void)
     r2 = ft_printf("printf: [%i]\n", i578);
     printf("return printf: %d | return ft_printf: %d\n\n", r1, r2);
     test(r1, r2);
+
+	printf("\e[32mSUCCESSFULLY PASSED MANDATORY TESTS\e[0m\n");
 
     printf("===== TESTING WIDTH / PRECISION =====\n");
     r1 =    printf("printf: [%10.5d]\n", 42);

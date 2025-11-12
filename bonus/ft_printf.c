@@ -6,36 +6,36 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 10:07:34 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 09:55:18 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_format(char *str, va_list args)
+int	print_format(t_format f, va_list args)
 {
 	unsigned int	i;
 
-	if (!str[1])
+	if (!f.type)
 		return (-1);
-	if (str[1] == '%')
-		return (ft_putchar_count('%'));
-	else if (str[1] == 'c')
-		return (ft_putchar_count((char)va_arg(args, int)));
-	else if (str[1] == 's')
-		return (ft_putstr_count(va_arg(args, char *)));
-	else if (str[1] == 'd' || str[1] == 'i')
-		return (ft_putnbr_count((int)va_arg(args, int)));
-	else if (str[1] == 'u')
-		return (ft_uint_putnbr_count((unsigned int)va_arg(args, int)));
-	else if (str[1] == 'p')
-		return (ft_putptr_count((void *)va_arg(args, void *)));
-	else if (str[1] == 'x' || str[1] == 'X')
+	if (f.type == '%')
+		return (ft_putchar_count('%', f));
+	else if (f.type == 'c')
+		return (ft_putchar_count((char)va_arg(args, int), f));
+	else if (f.type == 's')
+		return (ft_putstr_count(va_arg(args, char *), f));
+	else if (f.type == 'd' || f.type == 'i')
+		return (ft_putnbr_count((int)va_arg(args, int), f));
+	else if (f.type == 'u')
+		return (ft_uint_putnbr_count((unsigned int)va_arg(args, int), f));
+	else if (f.type == 'p')
+		return (ft_putptr_count((void *)va_arg(args, void *), f));
+	else if (f.type == 'x' || f.type == 'X')
 	{
 		i = (unsigned int)va_arg(args, unsigned int);
 		if (i == 0)
-			return (ft_putstr_count("0"));
-		return (display_hex(i, (str[1] == 'x')));
+			return (ft_putstr_count("0", f));
+		return (display_hex(i, (f.type == 'x')));
 	}
 	return (-1);
 }
@@ -54,16 +54,16 @@ int	ft_printf(const char *format, ...)
 	{
 		if (((char *)format)[i] == '%')
 		{
-			j = print_format(&((char *)format)[i], args);
+			j = print_format(parse_format((char *)format, &i), args);
 			if (j < 0)
 				return (-1);
 			len += j - 1;
-			i++;
+			//i++;
 		}
 		else
-			ft_putchar_fd(((char *)format)[i], 1);
+			ft_putchar_fd(((char *)format)[i++], 1);
 		len++;
-		i++;
+		//i++;
 	}
 	va_end(args);
 	return (len);

@@ -1,21 +1,26 @@
-CC						= clang
 NAME					= libftprintf.a
+
 SRC_DIR					= src
+BONUS_DIR				= bonus
 OBJ_DIR					= obj
 INCLUDES_DIR			= includes
+
 BONUS_DONE				= .bonus_done
 LIBFT_PATH				= libft
 LIBFT					= $(LIBFT_PATH)/libft.a
-CFLAGS					= -Wall -Werror -Wextra -I$(LIBFT_PATH) -I$(INCLUDES_DIR) -MMD -MP
+
+CFLAGS					= -Wall -Werror -Wextra -I$(LIBFT_PATH) -MMD -MP
 C_FILES					= $(SRC_DIR)/ft_printf.c \
 						  $(SRC_DIR)/count_functions.c \
-						  $(SRC_DIR)/conversions.c \
-						  $(SRC_DIR)/parser.c
+						  $(SRC_DIR)/conversions.c
 
-BONUS_C_FILES			= 	$(SRC_DIR)/parser.c
+BONUS_C_FILES			= $(BONUS_DIR)/ft_printf.c \
+						  $(BONUS_DIR)/count_functions.c \
+						  $(BONUS_DIR)/conversions.c \
+						  $(BONUS_DIR)/parser.c
 
 O_FILES					= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(C_FILES))
-O_FILES_BONUS			= $(BONUS_C_FILES:%.c=../$(OBJ_DIR)/%.o)
+O_FILES_BONUS			= $(patsubst $(BONUS_DIR)/%.c, $(OBJ_DIR)/%.o, $(BONUS_C_FILES))
 O_FILES_ALL				= $(O_FILES) $(O_FILES_BONUS)
 D_FILES					= $(O_FILES_ALL:.o=.d)
 
@@ -29,14 +34,17 @@ $(NAME): $(LIBFT) $(O_FILES)
 	ar -rcs $@ $(O_FILES)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(SRC_DIR) -c $< -o $@
 
-#bonus: $(BONUS_DONE)
+$(OBJ_DIR)/%.o: $(BONUS_DIR)/%.c
+	$(CC) $(CFLAGS) -I$(BONUS_DIR) -c $< -o $@
 
-#$(BONUS_DONE): $(O_FILES_ALL)
-#	cp $(LIBFT) $(NAME)
-#	ar -rcs $(NAME) $(O_FILES_ALL)
-#	touch $(BONUS_DONE)
+bonus: $(BONUS_DONE)
+
+$(BONUS_DONE): $(O_FILES_ALL)
+	cp $(LIBFT) $(NAME)
+	ar -rcs $(NAME) $(O_FILES_ALL)
+	touch $(BONUS_DONE)
 
 clean:
 	make -C $(LIBFT_PATH) clean
