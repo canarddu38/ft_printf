@@ -25,26 +25,27 @@ O_FILES_ALL				= $(O_FILES) $(O_FILES_BONUS)
 D_FILES					= $(O_FILES_ALL:.o=.d)
 
 all: $(NAME)
+bonus: $(BONUS_DONE)
 
 $(LIBFT):
-	$(MAKE) CC=$(CC) -C $(LIBFT_PATH) all
+	$(MAKE) -C $(LIBFT_PATH) all
 
 $(NAME): $(LIBFT) $(O_FILES)
 	cp $(LIBFT) $(NAME)
 	ar -rcs $@ $(O_FILES)
+
+$(BONUS_DONE): $(LIBFT) $(O_FILES_ALL)
+	cp $(LIBFT) $(NAME)
+	ar -rcs $(NAME) $(O_FILES_ALL)
+	touch $(BONUS_DONE)
+
+
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(SRC_DIR) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(BONUS_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(BONUS_DIR) -c $< -o $@
-
-bonus: $(BONUS_DONE)
-
-$(BONUS_DONE): $(O_FILES_ALL)
-	cp $(LIBFT) $(NAME)
-	ar -rcs $(NAME) $(O_FILES_ALL)
-	touch $(BONUS_DONE)
 
 clean:
 	make -C $(LIBFT_PATH) clean
@@ -56,6 +57,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
 
 -include $(D_FILES)

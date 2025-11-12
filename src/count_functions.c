@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:17:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 10:05:15 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 10:22:12 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	ft_putchar_count(char c)
 	ft_putchar_fd(c, 1);
 	return (1);
 }
+
 int	ft_putptr_count(void *ptr)
 {
 	int	len;

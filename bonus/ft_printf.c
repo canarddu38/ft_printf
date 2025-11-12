@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 09:55:18 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 10:20:57 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,10 @@ int	ft_printf(const char *format, ...)
 			if (j < 0)
 				return (-1);
 			len += j - 1;
-			//i++;
 		}
 		else
 			ft_putchar_fd(((char *)format)[i++], 1);
 		len++;
-		//i++;
 	}
 	va_end(args);
 	return (len);
