@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 13:10:58 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 16:53:57 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int	ft_printf(const char *format, ...)
 	return (len);
 }
 
-void	main(void)
-{
-	char	*s = "Hello World '%10.5d'\n";
-	printf(s, -42);
-	ft_printf(s, -42);
+//void	main(void)
+//{
+//	char	*s = "Hello World '%10.5d' '%15.10d' '%.10s' '%7s'\n";
+//	printf(s, -42, 12345, "Hello World", 0);
+//	ft_printf(s, -42, 12345, "Hello World", 0);
 	
-	// check if precision > width -> fill even if width < precision
-}
+//	// check if precision > width -> fill even if width < precision
+//}

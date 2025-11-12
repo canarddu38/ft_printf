@@ -6,11 +6,26 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 00:03:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 10:29:57 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 15:28:08 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
+
+int	number_len(int nb)
+{
+	int	i;
+
+	i = 0;
+	if (nb < 0)
+		i++;
+	while (nb != 0)
+	{
+		i++;
+		nb /= 10;
+	}
+	return (i);
+}
 
 int	display_hex(size_t nb, int in_lowercase)
 {

@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:13:37 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 10:29:42 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 15:56:12 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ int			ft_uint_putnbr_count(unsigned int nb, t_format f);
 int			ft_putptr_count(void *ptr, t_format f);
 
 int			display_hex(size_t nb, int in_lowercase);
+int			number_len(int nb);
 
 int			ft_printf(const char *s, ...) __attribute__((format(printf, 1, 2)));
+
+int			ft_put_precision_rep(int already_printed);
+int			ft_put_padding_rep(int already_printed);
 
 #endif

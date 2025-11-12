@@ -6,27 +6,33 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:17:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 13:33:54 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 17:23:11 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-int	ft_putpadding_rep(int already_printed, t_format f)
+int	ft_put_precision_rep(int count)
 {
 	int	i;
 
 	i = 0;
-	while (i < f.width - f.precision)
-	{
-		ft_putchar_fd(' ', 1);
-		i++;
-	}
-	i = 0;
-	while (already_printed < f.precision)
+	while (i < count)
 	{
 		ft_putchar_fd('0', 1);
-		already_printed++;
+		i++;
+	}
+	return (i);
+}
+
+int	ft_put_padding_rep(int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		ft_putchar_fd(' ', 1);
 		i++;
 	}
 	return (i);
@@ -35,29 +41,21 @@ int	ft_putpadding_rep(int already_printed, t_format f)
 int	ft_putnbr_count(int nb, t_format f)
 {
 	int	i;
-	int	nb_copy;
 	int	is_negative;
 
-	i = 0;
 	is_negative = 0;
-	nb_copy = nb;
+	i = number_len(nb);
+	ft_put_padding_rep(f.width - f.precision - (nb < 0));
 	if (nb < 0)
+	{
 		is_negative = 1;
-	if (nb == 0) // has to print precision
-		return (ft_putpadding_rep(0, f));
-	while (nb != 0)
-	{
-		i++;
-		nb /= 10;
-	}
-	if (is_negative)
-	{
 		ft_putchar_fd('-', 1);
-		nb_copy *= -1; // TODO
+		nb = -nb; // TODO
+		i--;
 	}
-	ft_putpadding_rep(i, f);
-	ft_putnbr_fd(nb_copy, 1);
-	return (i + is_negative);
+	i += ft_put_precision_rep(f.precision - i);
+	ft_putnbr_fd(nb, 1);
+	return (i);
 }
 
 int	ft_uint_putnbr_count(unsigned int nb, t_format f)
@@ -74,12 +72,17 @@ int	ft_uint_putnbr_count(unsigned int nb, t_format f)
 int	ft_putstr_count(char *str, t_format f)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	if (str == 0)
 		str = "(null)";
-	i = ft_strlen(str);
-	i += ft_putpadding_rep(i, f);
-	ft_putstr_fd(str, 1);
+	i = ft_put_padding_rep(f.width - ft_strlen(str));
+	while (i < f.width)
+	{
+		i++;
+		ft_putchar_fd(str[j++], 1);
+	}
 	return (i);
 }
 
@@ -87,8 +90,7 @@ int	ft_putchar_count(char c, t_format f)
 {
 	int	i;
 
-	i = ft_putpadding_rep(1, f);
-	i += 1;
+	i = ft_put_padding_rep(f.width - 1) + 1;
 	ft_putchar_fd(c, 1);
 	return (i);
 }
@@ -97,7 +99,6 @@ int	ft_putptr_count(void *ptr, t_format f)
 {
 	int	len;
 
-	(void)f;
 	len = 0;
 	if (!ptr)
 		return (ft_putstr_count("(nil)", f));
