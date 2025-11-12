@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:17:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 11:39:00 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 13:33:54 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ int	ft_putpadding_rep(int already_printed, t_format f)
 	int	i;
 
 	i = 0;
+	while (i < f.width - f.precision)
+	{
+		ft_putchar_fd(' ', 1);
+		i++;
+	}
+	i = 0;
 	while (already_printed < f.precision)
 	{
 		ft_putchar_fd('0', 1);
 		already_printed++;
-	}
-	while (i < f.width - f.precision)
-	{
-		ft_putchar_fd(f.flags[i%6], 1);
 		i++;
 	}
 	return (i);

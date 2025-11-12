@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 11:44:20 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 13:10:58 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_printf(const char *format, ...)
 
 void	main(void)
 {
-	char *s = "Hello World '%-10.5d'\n";
+	char	*s = "Hello World '%10.5d'\n";
 	printf(s, -42);
 	ft_printf(s, -42);
 	
