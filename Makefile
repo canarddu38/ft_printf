@@ -14,10 +14,10 @@ C_FILES					= $(SRC_DIR)/ft_printf.c \
 						  $(SRC_DIR)/count_functions.c \
 						  $(SRC_DIR)/conversions.c
 
-BONUS_C_FILES			= $(BONUS_DIR)/ft_printf.c \
-						  $(BONUS_DIR)/count_functions.c \
-						  $(BONUS_DIR)/conversions.c \
-						  $(BONUS_DIR)/parser.c
+BONUS_C_FILES			= $(BONUS_DIR)/ft_printf_bonus.c \
+						  $(BONUS_DIR)/count_functions_bonus.c \
+						  $(BONUS_DIR)/conversions_bonus.c \
+						  $(BONUS_DIR)/parser_bonus.c
 
 O_FILES					= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(C_FILES))
 O_FILES_BONUS			= $(patsubst $(BONUS_DIR)/%.c, $(OBJ_DIR)/%.o, $(BONUS_C_FILES))

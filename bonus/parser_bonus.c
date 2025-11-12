@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 00:15:44 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 09:52:49 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 11:43:05 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 t_format	parse_format(char *str, size_t *i)
 {
 	t_format	f;
+	size_t		j;
 
-	ft_memset(&f, 0, sizeof(t_format));
 	(*i)++;
+	j = 0;
 	while (str[*i] && ft_strchr("-0.# +", str[*i]))
-		ft_strlcat(f.flags, &str[*i++], 1);
+		f.flags[j++] = &str[(*i)++];
 	while (ft_isdigit(str[*i]))
 	{
-		f.width = atoi(&str[*i]);
+		f.width = ft_atoi(&str[*i]);
 		while (ft_isdigit(str[*i]))
 			(*i)++;
 	}
@@ -31,7 +32,7 @@ t_format	parse_format(char *str, size_t *i)
 		(*i)++;
 		while (ft_isdigit(str[*i]))
 		{
-			f.precision = atoi(&str[*i]);
+			f.precision = ft_atoi(&str[*i]);
 			while (ft_isdigit(str[*i]))
 				(*i)++;
 		}

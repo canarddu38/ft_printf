@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_functions.c                                  :+:      :+:    :+:   */
+/*   count_functions_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:17:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 09:43:15 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 11:39:00 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-int	ft_putflags_rep(int already_printed, t_format f)
+int	ft_putpadding_rep(int already_printed, t_format f)
 {
 	int	i;
 
 	i = 0;
-	while (i < f.width - already_printed)
+	while (already_printed < f.precision)
 	{
-		ft_putchar_fd(f.flags[0], 1);
+		ft_putchar_fd('0', 1);
+		already_printed++;
+	}
+	while (i < f.width - f.precision)
+	{
+		ft_putchar_fd(f.flags[i%6], 1);
 		i++;
 	}
 	return (i);
@@ -29,21 +34,28 @@ int	ft_putnbr_count(int nb, t_format f)
 {
 	int	i;
 	int	nb_copy;
+	int	is_negative;
 
 	i = 0;
+	is_negative = 0;
 	nb_copy = nb;
 	if (nb < 0)
-		i++;
-	if (nb == 0)
-		return (1);
+		is_negative = 1;
+	if (nb == 0) // has to print precision
+		return (ft_putpadding_rep(0, f));
 	while (nb != 0)
 	{
 		i++;
 		nb /= 10;
 	}
-	ft_putflags_rep(i, f);
+	if (is_negative)
+	{
+		ft_putchar_fd('-', 1);
+		nb_copy *= -1; // TODO
+	}
+	ft_putpadding_rep(i, f);
 	ft_putnbr_fd(nb_copy, 1);
-	return (i);
+	return (i + is_negative);
 }
 
 int	ft_uint_putnbr_count(unsigned int nb, t_format f)
@@ -64,7 +76,7 @@ int	ft_putstr_count(char *str, t_format f)
 	if (str == 0)
 		str = "(null)";
 	i = ft_strlen(str);
-	i += ft_putflags_rep(i, f);
+	i += ft_putpadding_rep(i, f);
 	ft_putstr_fd(str, 1);
 	return (i);
 }
@@ -73,7 +85,7 @@ int	ft_putchar_count(char c, t_format f)
 {
 	int	i;
 
-	i = ft_putflags_rep(1, f);
+	i = ft_putpadding_rep(1, f);
 	i += 1;
 	ft_putchar_fd(c, 1);
 	return (i);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 10:20:57 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/12 11:44:20 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 int	print_format(t_format f, va_list args)
 {
@@ -65,4 +65,13 @@ int	ft_printf(const char *format, ...)
 	}
 	va_end(args);
 	return (len);
+}
+
+void	main(void)
+{
+	char *s = "Hello World '%-10.5d'\n";
+	printf(s, -42);
+	ft_printf(s, -42);
+	
+	// check if precision > width -> fill even if width < precision
 }
