@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:17:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 11:24:08 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 12:47:58 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_putnbr_count(int nb, t_format f)
 	if (neg)
 		n = -n;
 	num_len = number_len(nb) * !(f.precision == 0 && nb == 0);
-	prec_len = (f.precision > num_len) ? f.precision - num_len : 0;
+	prec_len = (f.precision - num_len * (f.precision > num_len));
 	pad_len = f.width - (num_len + prec_len + neg);
 	if (pad_len < 0)
 		pad_len = 0;
@@ -61,8 +61,19 @@ int	ft_putnbr_count(int nb, t_format f)
 	printed = 0;
 	if (!ft_memchr(f.flags, '-', 6))
 		printed += ft_put_padding_rep(pad_len, pad_char);
+	if ((ft_memchr(f.flags, '+', 6) || ft_memchr(f.flags, ' ', 6)) && !neg)
+	{
+		if (ft_memchr(f.flags, '+', 6))
+			ft_putchar_fd('+', 1);
+		else
+			ft_putchar_fd(' ', 1);
+		printed++;
+	}
 	if (neg)
-		ft_putchar_fd('-', 1), printed++;
+	{
+		ft_putchar_fd('-', 1);
+		printed++;
+	}
 	printed += ft_put_precision_rep(prec_len);
 	if (num_len > 0)
 	{
@@ -150,7 +161,11 @@ int	ft_putptr_count(void *ptr, t_format f)
 	int	printed = 0;
 	int	len;
 	int	pad_len;
+	char	pad_char;
 
+	pad_char = ' ';
+	if (ft_memchr(f.flags, '0', 6) && !(ft_memchr(f.flags, '-', 6) || f.precision > -1))
+		pad_char = '0';
 	if (!ptr)
 		return (ft_putstr_count("(nil)", f));
 	len = 2 + hex_len((unsigned long)ptr);
@@ -158,12 +173,12 @@ int	ft_putptr_count(void *ptr, t_format f)
 	if (pad_len < 0)
 		pad_len = 0;
 	if (!ft_memchr(f.flags, '-', 6))
-		printed += ft_put_padding_rep(pad_len, ' ');
+		printed += ft_put_padding_rep(pad_len, pad_char);
 	ft_putstr_fd("0x", 1);
 	printed += 2;
 	printed += display_hex((unsigned long)ptr, 1);
 	if (ft_memchr(f.flags, '-', 6))
-		printed += ft_put_padding_rep(pad_len, ' ');
+		printed += ft_put_padding_rep(pad_len, pad_char);
 	return (printed);
 }
 
