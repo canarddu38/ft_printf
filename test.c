@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:15:36 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 17:01:15 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 18:37:29 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,15 +266,18 @@ int main(void)
     test(r1, r2);
 
 	char *s_hidden = "Hello World This is a Dull string...";
-	int a01,a02,a03,a04,a05,a06,a07,a08,a09,a10,a11,a12;
+	int a01,a02,a03,a04,a05,a06,a07,a08,a09,a10,a11,a12,ncm_p,t;
 
-	r1 = printf("%5%");
-	r2 = ft_printf("%5%");
+	int len = printf("'%5%'\n");
+	printf("len = %d\n", len);
+
+	r1 = printf("'%5%'\n");
+	r2 = ft_printf("'%5%'\n");
 	printf("return printf: %d | return ft_printf: %d\n\n", r1, r2);
 	test(r1, r2);
 
-	r1 = printf("%-5%");
-	r2 = ft_printf("%-5%");
+	r1 = printf("%-5%\n");
+	r2 = ft_printf("%-5%\n");
 	printf("return printf: %d | return ft_printf: %d\n\n", r1, r2);
 	test(r1, r2);
 

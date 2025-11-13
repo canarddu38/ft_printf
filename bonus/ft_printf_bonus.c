@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 13:28:56 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 18:34:05 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 int	print_format(t_format f, va_list args)
 {
 	unsigned int	i;
-	int	len;
-	
+	int				len;
+
 	if (!f.type)
 		return (-1);
 	if (f.type == '%')
@@ -54,7 +54,7 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	size_t	i;
-	size_t	j;
+	int		j;
 	size_t	len;
 
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:17:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 16:43:43 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 18:35:46 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	ft_put_padding_rep(int count, char c)
 	return (i);
 }
 
-#include <stdio.h>
 int	ft_putnbr_count(int nb, t_format f)
 {
 	long	n;
