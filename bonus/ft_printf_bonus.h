@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:13:37 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 11:15:24 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 15:22:10 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include "libft.h"
 # include <stdarg.h> 
+
+# define FLAG_MINUS 0
+# define FLAG_ZERO 1
+# define FLAG_HASHTAG 2
+# define FLAG_SPACE 3
+# define FLAG_PLUS 4
 
 typedef struct s_format
 {
@@ -33,6 +39,7 @@ int			ft_uint_putnbr_count(unsigned int nb, t_format f);
 int			ft_putptr_count(void *ptr, t_format f);
 
 int			display_hex(size_t nb, int in_lowercase);
+int			display_uint(unsigned int nb);
 int			number_len(int nb);
 int			hex_len(int nb);
 

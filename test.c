@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:15:36 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 10:26:11 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 16:44:56 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,8 +229,8 @@ int main(void)
     test(r1, r2);
 
     printf("===== TESTING '#' FLAG =====\n");
-    r1 =    printf("printf: [%#x] [%#X] [%#o]\n", 255, 255, 255);
-    r2 = ft_printf("printf: [%#x] [%#X] [%#o]\n", 255, 255, 255);
+    r1 =    printf("printf: [%#x] [%#X]\n", 255, 255);
+    r2 = ft_printf("printf: [%#x] [%#X]\n", 255, 255);
     printf("return printf: %d | return ft_printf: %d\n\n", r1, r2);
     test(r1, r2);
 

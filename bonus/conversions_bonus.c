@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 00:03:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 12:22:47 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 15:30:51 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	number_len(int nb)
 	int	i;
 
 	i = 0;
-	if (nb < 0)
+	if (nb <= 0)
 		i++;
 	while (nb != 0)
 	{
@@ -57,5 +57,18 @@ int	display_hex(size_t nb, int in_lowercase)
 		output = output + '0';
 	ft_putchar_fd(output, 1);
 	return (len + 1);
+}
+
+int	display_uint(unsigned int nb)
+{
+	int	len;
+
+	len = 0;
+	if (nb == 0)
+		return (0);
+	if (nb > 0)
+		len += 1 + display_uint(nb / 10);
+	ft_putchar_fd('0' + nb % 10, 1);
+	return (len);
 }
 

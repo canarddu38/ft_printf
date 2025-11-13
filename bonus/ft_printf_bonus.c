@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 11:35:23 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 13:28:56 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	print_format(t_format f, va_list args)
 	{
 		i = (unsigned int)va_arg(args, unsigned int);
 		len = 0;
-		if (ft_memchr(f.flags, '#', 6))
+		if (f.flags[FLAG_HASHTAG])
 		{
 			len += 2;
 			ft_putchar_fd('0', 1);
@@ -77,38 +77,35 @@ int	ft_printf(const char *format, ...)
 	return (len);
 }
 
-void	main(void)
-{
-	char	*s = "Hello World '%10.5d' '%15.10d' '%.10s' '%7s'\n";
-	printf(s, -42, 12345, "Hello World", 0);
-	ft_printf(s, -42, 12345, "Hello World", 0);
+//void	main(void)
+//{
+//	char	*s = "Hello World '%10.5d' '%15.10d' '%.10s' '%7s'\n";
+//	printf(s, -42, 12345, "Hello World", 0);
+//	ft_printf(s, -42, 12345, "Hello World", 0);
 
-	s = "test2 '%10.5d'\n";
-	printf(s, 42);
-	ft_printf(s, 42);
+//	s = "test2 '%10.5d'\n";
+//	printf(s, 42);
+//	ft_printf(s, 42);
 
-	s = "%08.3d\n";
-	printf(s, 42);
-	ft_printf(s, 42);
+//	s = "%08.3d\n";
+//	printf(s, 42);
+//	ft_printf(s, 42);
 
-	s = "%-05d\n";
-	printf(s, 42);
-	ft_printf(s, 42);
+//	s = "%-05d\n";
+//	printf(s, 42);
+//	ft_printf(s, 42);
 
-	s = "%#x\n";
-	printf(s, 42);
-	ft_printf(s, 42);
-	s = "%#o\n";
-	printf(s, 42);
-	ft_printf(s, 42);
+//	s = "%#x\n";
+//	printf(s, 42);
+//	ft_printf(s, 42);
 
-	s = "%+d\n";
-	printf(s, 42);
-	ft_printf(s, 42);
-	s = "% d\n";
-	printf(s, 42);
-	ft_printf(s, 42);
+//	s = "%+d\n";
+//	printf(s, 42);
+//	ft_printf(s, 42);
+//	s = "% d\n";
+//	printf(s, 42);
+//	ft_printf(s, 42);
 
-	// check if precision > width -> fill even if width < precision
-	printf("finished\n");
-}
+//	// check if precision > width -> fill even if width < precision
+//	printf("finished\n");
+//}
