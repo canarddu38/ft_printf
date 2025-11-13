@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 00:15:44 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 13:28:46 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 23:41:45 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_format	parse_format(char *str, size_t *i)
 	}
 	if (str[*i] == '.')
 	{
+		f.precision = 0;
 		(*i)++;
 		while (ft_isdigit(str[*i]))
 		{

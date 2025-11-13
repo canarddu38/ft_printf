@@ -6,14 +6,13 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 18:34:05 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 22:12:33 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
 
-#include "stdio.h"
 int	print_format(t_format f, va_list args)
 {
 	unsigned int	i;
@@ -22,7 +21,10 @@ int	print_format(t_format f, va_list args)
 	if (!f.type)
 		return (-1);
 	if (f.type == '%')
-		return (ft_putchar_count('%', f));
+	{
+		ft_putchar_fd('%', 1);
+		return (1);
+	}
 	else if (f.type == 'c')
 		return (ft_putchar_count((char)va_arg(args, int), f));
 	else if (f.type == 's')
