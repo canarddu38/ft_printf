@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:13:37 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 22:52:15 by kali             ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 11:15:24 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int			ft_putptr_count(void *ptr, t_format f);
 
 int			display_hex(size_t nb, int in_lowercase);
 int			number_len(int nb);
+int			hex_len(int nb);
 
 int			ft_printf(const char *s, ...) __attribute__((format(printf, 1, 2)));
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 22:39:05 by kali             ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 11:35:23 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int	print_format(t_format f, va_list args)
 {
 	unsigned int	i;
+	int	len;
 	
 	if (!f.type)
 		return (-1);
@@ -35,9 +36,16 @@ int	print_format(t_format f, va_list args)
 	else if (f.type == 'x' || f.type == 'X')
 	{
 		i = (unsigned int)va_arg(args, unsigned int);
+		len = 0;
+		if (ft_memchr(f.flags, '#', 6))
+		{
+			len += 2;
+			ft_putchar_fd('0', 1);
+			ft_putchar_fd('X' + (32 * (f.type == 'x')), 1);
+		}
 		if (i == 0)
-			return (ft_putstr_count("0", f));
-		return (display_hex(i, (f.type == 'x')));
+			return (len + ft_putstr_count("0", f));
+		return (len + display_hex(i, (f.type == 'x')));
 	}
 	return (-1);
 }
@@ -78,6 +86,29 @@ void	main(void)
 	s = "test2 '%10.5d'\n";
 	printf(s, 42);
 	ft_printf(s, 42);
-	
+
+	s = "%08.3d\n";
+	printf(s, 42);
+	ft_printf(s, 42);
+
+	s = "%-05d\n";
+	printf(s, 42);
+	ft_printf(s, 42);
+
+	s = "%#x\n";
+	printf(s, 42);
+	ft_printf(s, 42);
+	s = "%#o\n";
+	printf(s, 42);
+	ft_printf(s, 42);
+
+	s = "%+d\n";
+	printf(s, 42);
+	ft_printf(s, 42);
+	s = "% d\n";
+	printf(s, 42);
+	ft_printf(s, 42);
+
 	// check if precision > width -> fill even if width < precision
+	printf("finished\n");
 }

@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 00:03:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/12 15:28:08 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/13 11:15:10 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@ int	number_len(int nb)
 	return (i);
 }
 
+int	hex_len(int nb)
+{
+	int	i;
+
+	i = 0;
+	if (nb < 0)
+		i++;
+	while (nb != 0)
+	{
+		i++;
+		nb /= 16;
+	}
+	return (i);
+}
+
 int	display_hex(size_t nb, int in_lowercase)
 {
 	char	output;
@@ -43,3 +58,4 @@ int	display_hex(size_t nb, int in_lowercase)
 	ft_putchar_fd(output, 1);
 	return (len + 1);
 }
+
