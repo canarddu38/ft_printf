@@ -6,18 +6,14 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/14 16:03:17 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/15 00:04:30 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-#include "stdio.h"
 int	print_format(t_format f, va_list args)
 {
-	unsigned int	i;
-	int				len;
-
 	if (!f.type)
 		return (-1);
 	if (f.type == '%')
@@ -30,60 +26,13 @@ int	print_format(t_format f, va_list args)
 	else if (f.type == 's')
 		return (ft_putstr_count(va_arg(args, char *), f));
 	else if (f.type == 'd' || f.type == 'i')
-		return (ft_putnbr_count((int)va_arg(args, int), f));
+		return (ft_putnbr_count((int)va_arg(args, int), f, 0, 0));
 	else if (f.type == 'u')
-		return (ft_uint_putnbr_count((unsigned int)va_arg(args, int), f));
+		return (ft_uint_putnbr_count((unsigned int)va_arg(args, int), f, 0, 0));
 	else if (f.type == 'p')
 		return (ft_putptr_count((void *)va_arg(args, void *), f));
 	else if (f.type == 'x' || f.type == 'X')
-	{
-		i = (unsigned int)va_arg(args, unsigned int);
-		len = 0;
-		int pad_len = 0;
-		int	prec_len = 0;
-		int	num_len = 0;
-		char pad_char = ' ';
-		
-		if (f.flags[FLAG_HASHTAG])
-		{
-			len += 2;
-			ft_putchar_fd('0', 1);
-			ft_putchar_fd('X' + (32 * (f.type == 'x')), 1);
-		}
-		if (!f.flags[FLAG_MINUS] && f.flags[FLAG_ZERO] && f.precision == -1)
-			pad_char = '0';
-		num_len = len + hex_len(i);
-		//printf("\nprecision: %i, width: %i, num_len: %i, len: %i, hex_len: %i, prec_len: %i, pad_len: %i, flags: %s\n", f.precision, f.width, num_len, len, hex_len((unsigned long)i), prec_len, pad_len, f.flags);
-
-		if (f.precision > -1 && num_len > f.precision)
-			return (0);
-		if (f.width != WIDTH_UNRESTRICTED)
-			pad_len = f.width - max(num_len, f.precision);
-
-		if (f.precision != WIDTH_UNRESTRICTED)
-			prec_len = f.precision - num_len;
-
-		//printf("\nprecision: %i, width: %i, num_len: %i, prec_len: %i, pad_len: %i, flags: %s\n", f.precision, f.width, num_len, prec_len, pad_len, f.flags);
-		if (!f.flags[FLAG_MINUS])
-			len += ft_put_padding_rep(pad_len, pad_char);
-
-		len += ft_put_precision_rep(prec_len);
-		if (i == 0)
-		{
-			if (max(f.width, f.precision) != 0)
-				ft_putchar_fd('0', 1);
-			else
-				ft_putchar_fd(pad_char, 1);
-			len++;
-		}
-		else
-			len += display_hex(i, (f.type == 'x'));
-
-		if (f.flags[FLAG_MINUS])
-			len += ft_put_padding_rep(pad_len, pad_char);
-
-		return (len);
-	}
+		return (ft_puthex_count((uint32_t)va_arg(args, uint32_t), f, 0, 0));
 	return (-1);
 }
 
@@ -101,6 +50,7 @@ int	ft_printf(const char *format, ...)
 	{
 		if (((char *)format)[i] == '%')
 		{
+			i++;
 			j = print_format(parse_format((char *)format, &i), args);
 			if (j < 0)
 				return (-1);
@@ -114,35 +64,37 @@ int	ft_printf(const char *format, ...)
 	return (len);
 }
 
-//void	main(void)
-//{
-//	char	*s = "Hello World '%10.5d' '%15.10d' '%.10s' '%7s'\n";
-//	printf(s, -42, 12345, "Hello World", 0);
-//	ft_printf(s, -42, 12345, "Hello World", 0);
+/*
+void	main(void)
+{
+	char	*s = "Hello World '%10.5d' '%15.10d' '%.10s' '%7s'\n";
+	printf(s, -42, 12345, "Hello World", 0);
+	ft_printf(s, -42, 12345, "Hello World", 0);
 
-//	s = "test2 '%10.5d'\n";
-//	printf(s, 42);
-//	ft_printf(s, 42);
+	s = "test2 '%10.5d'\n";
+	printf(s, 42);
+	ft_printf(s, 42);
 
-//	s = "%08.3d\n";
-//	printf(s, 42);
-//	ft_printf(s, 42);
+	s = "%08.3d\n";
+	printf(s, 42);
+	ft_printf(s, 42);
 
-//	s = "%-05d\n";
-//	printf(s, 42);
-//	ft_printf(s, 42);
+	s = "%-05d\n";
+	printf(s, 42);
+	ft_printf(s, 42);
 
-//	s = "%#x\n";
-//	printf(s, 42);
-//	ft_printf(s, 42);
+	s = "%#x\n";
+	printf(s, 42);
+	ft_printf(s, 42);
 
-//	s = "%+d\n";
-//	printf(s, 42);
-//	ft_printf(s, 42);
-//	s = "% d\n";
-//	printf(s, 42);
-//	ft_printf(s, 42);
+	s = "%+d\n";
+	printf(s, 42);
+	ft_printf(s, 42);
+	s = "% d\n";
+	printf(s, 42);
+	ft_printf(s, 42);
 
-//	// check if precision > width -> fill even if width < precision
-//	printf("finished\n");
-//}
+	// check if precision > width -> fill even if width < precision
+	printf("finished\n");
+}
+*/

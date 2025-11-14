@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 00:15:44 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/14 15:34:40 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/14 23:04:23 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,38 +26,35 @@ static int	index_of(char c, char *str)
 	return (-1);
 }
 
+static void	parse_number(char *str, size_t *i, int *output)
+{
+	while (ft_isdigit(str[*i]))
+	{
+		*output = ft_atoi(&str[*i]);
+		while (ft_isdigit(str[*i]))
+			(*i)++;
+	}
+}
+
 t_format	parse_format(char *str, size_t *i)
 {
 	t_format	f;
 
-	(*i)++;
 	ft_memset(&f.flags, 0, 6);
-	f.width = -1;
-	f.precision = -1;
+	f.width = WIDTH_UNRESTRICTED;
+	f.precision = WIDTH_UNRESTRICTED;
 	while (str[*i] && ft_strchr("-0# +", str[*i]))
 	{
-		f.flags[index_of(str[*i], "-0# +") % 6] = str[*i];
+		f.flags[index_of(str[*i], "-0# +") % 5] = str[*i];
 		(*i)++;
 	}
-	while (ft_isdigit(str[*i]))
-	{
-		f.width = ft_atoi(&str[*i]);
-		while (ft_isdigit(str[*i]))
-			(*i)++;
-	}
+	parse_number(str, i, &f.width);
 	if (str[*i] == '.')
 	{
 		f.precision = 0;
 		(*i)++;
-		while (ft_isdigit(str[*i]))
-		{
-			f.precision = ft_atoi(&str[*i]);
-			while (ft_isdigit(str[*i]))
-				(*i)++;
-		}
+		parse_number(str, i, &f.precision);
 	}
-	//if (f.width == -1 && f.precision > -1)
-	//	f.width = f.precision;
 	f.type = str[(*i)++];
 	return (f);
 }

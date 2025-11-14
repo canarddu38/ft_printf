@@ -16,9 +16,14 @@ C_FILES					= $(SRC_DIR)/ft_printf.c \
 
 BONUS_C_FILES			= $(BONUS_DIR)/ft_printf_bonus.c \
 						  $(BONUS_DIR)/count_functions_bonus.c \
-						  $(BONUS_DIR)/conversions_bonus.c \
+						  $(BONUS_DIR)/types_display_bonus.c \
 						  $(BONUS_DIR)/parser_bonus.c \
-						  $(BONUS_DIR)/math_bonus.c
+						  $(BONUS_DIR)/math_bonus.c \
+						  $(BONUS_DIR)/ft_putnbr_count_bonus.c \
+						  $(BONUS_DIR)/ft_putptr_count_bonus.c \
+						  $(BONUS_DIR)/ft_putchar_count_bonus.c \
+						  $(BONUS_DIR)/ft_uint_putnbr_count_bonus.c \
+						  $(BONUS_DIR)/ft_puthex_count_bonus.c
 
 O_FILES					= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(C_FILES))
 O_FILES_BONUS			= $(patsubst $(BONUS_DIR)/%.c, $(OBJ_DIR)/%.o, $(BONUS_C_FILES))

@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 00:03:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/14 10:55:58 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/14 22:19:22 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,3 @@ int	display_uint(unsigned int nb)
 	ft_putchar_fd('0' + nb % 10, 1);
 	return (len);
 }
-
