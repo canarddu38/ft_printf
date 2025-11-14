@@ -29,9 +29,11 @@ Because ft_putnbr() and ft_putstr() aren’t enough
 - `%%` Prints a percent sign.
 
 ## TODO - Future improvements
-- [ ] handle - flag
+- [ ] handle flags for the bonus
+- [ ] handle invalid type input e.q. (ft_printf(`%c`, `ddd`);)
 
 ## Know Bugs
 - [x] `%u` may have an underflow error (possible type cast issue).
+
 
 ## By 0x262d - Nov 2025

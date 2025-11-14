@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:13:37 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 15:22:10 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/14 16:02:59 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define FLAG_HASHTAG 2
 # define FLAG_SPACE 3
 # define FLAG_PLUS 4
+# define WIDTH_UNRESTRICTED -1
 
 typedef struct s_format
 {
@@ -40,12 +41,15 @@ int			ft_putptr_count(void *ptr, t_format f);
 
 int			display_hex(size_t nb, int in_lowercase);
 int			display_uint(unsigned int nb);
-int			number_len(int nb);
-int			hex_len(int nb);
 
 int			ft_printf(const char *s, ...) __attribute__((format(printf, 1, 2)));
 
 int			ft_put_precision_rep(int already_printed);
 int			ft_put_padding_rep(int count, char pad);
+
+int			max(int i, int j);
+int			min(int i, int j);
+int			number_len(int nb);
+int			hex_len(unsigned int nb);
 
 #endif

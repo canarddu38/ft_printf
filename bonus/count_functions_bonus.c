@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 15:17:18 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 23:50:00 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/14 16:16:58 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_put_padding_rep(int count, char c)
 	return (i);
 }
 
+#include <stdio.h>
 int	ft_putnbr_count(int nb, t_format f)
 {
 	long	n;
@@ -50,13 +51,17 @@ int	ft_putnbr_count(int nb, t_format f)
 
 	n = nb;
 	pad_char = ' ';
+	pad_len = 0;
 	neg = (n < 0);
+	prec_len = 0;
 	if (neg)
 		n = -n;
 	num_len = (number_len(nb) - (neg)) * !(f.precision == 0 && nb == 0);
-	prec_len = (f.precision - num_len * (f.precision > num_len));
+	if (f.precision > num_len)
+		prec_len = f.precision - num_len;
 	pad_len = f.width - (num_len + (prec_len > 0) * prec_len + neg);
-	if (pad_len < 0)
+	//printf("\nprecision: %i, width: %i, num_len: %i, prec_len: %i, pad_len: %i\n", f.precision, f.width, num_len, prec_len, pad_len);
+	if (pad_len < 0 || f.width == -1)// || f.precision == num_len)
 		pad_len = 0;
 	if (f.flags[FLAG_ZERO] && !f.flags[FLAG_MINUS] && f.precision < 0)
 		pad_char = '0';
@@ -101,12 +106,17 @@ int	ft_uint_putnbr_count(unsigned int nb, t_format f)
 	pad_char = ' ';
 	prec_len = 0;
 	printed = 0;
+	pad_len = 0;
 	num_len = number_len((int)nb);
 	if (f.precision > num_len)
 		prec_len = f.precision - num_len;
-	pad_len = f.width - (num_len + prec_len);
+	if (f.width != WIDTH_UNRESTRICTED)
+		pad_len = f.width - (max(num_len, f.precision) * (f.precision != 0));
+	//printf("\nprecision: %i, width: %i, num_len: %i, prec_len: %i, pad_len: %i\n", f.precision, f.width, num_len, prec_len, pad_len);
 	if (f.flags[FLAG_ZERO] && !f.flags[FLAG_MINUS] && f.precision < 0)
 		pad_char = '0';
+	if ((int)nb < 0)
+		ft_putchar_fd('-', 1);
 	if (!f.flags[FLAG_MINUS])
 		printed += ft_put_padding_rep(pad_len, pad_char);
 	printed += ft_put_precision_rep(prec_len);
@@ -118,7 +128,7 @@ int	ft_uint_putnbr_count(unsigned int nb, t_format f)
 	}
 	if (f.flags[FLAG_MINUS])
 		printed += ft_put_padding_rep(pad_len, ' ');
-	return (printed + (nb == 0));
+	return (printed + ((nb == 0) * (f.precision != 0)));
 }
 
 int	ft_putstr_count(char *str, t_format f)
@@ -132,10 +142,10 @@ int	ft_putstr_count(char *str, t_format f)
 	if (is_null)
 		str = "(null)";
 	len = ft_strlen(str);
-	if (f.precision > -1 && f.precision < len)
+	if (f.precision != -1 && len > f.precision && is_null)
+		len = 0;
+	else if (f.precision > -1 && f.precision < len)
 		len = f.precision;
-	//if (f.width != -1 && len > f.width)
-	//	len = f.width;
 	pad_len = f.width - len;
 	if (pad_len < 0)
 		pad_len = 0;
@@ -183,6 +193,7 @@ int	ft_putptr_count(void *ptr, t_format f)
 	pad_len = f.width - len;
 	if (pad_len < 0)
 		pad_len = 0;
+	//printf("\nprecision: %i, width: %i, len: %i, prec_len: %i, pad_len: %i, flags: %s\n", f.precision, f.width, len, 0, pad_len, f.flags);
 	if (!f.flags[FLAG_MINUS])
 		printed += ft_put_padding_rep(pad_len, pad_char);
 	ft_putstr_fd("0x", 1);

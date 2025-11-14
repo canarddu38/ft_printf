@@ -6,7 +6,7 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:15:36 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 22:36:14 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/14 15:55:20 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    test(int a, int b)
 {
     if (a != b)
 	{
-		printf("\e[31mTEST FAILED AT TEST.%i!\e[0m\n", test_count);
+		printf("\e[31mTEST FAILED AT TEST.%i! 💀\e[0m\n", test_count);
         exit(1);
 	}
 }
@@ -1944,7 +1944,7 @@ int main(void)
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
 
-	test_count++;
+	test_count++; // l.312
 	r1 = printf("'%.3x'\n", 0);
 	r2 = ft_printf("'%.3x'\n", 0);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
@@ -1962,11 +1962,12 @@ int main(void)
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
 
-	test_count++;
+	test_count++; // l.315
 	r1 = printf("'%05x'\n", 43);
 	r2 = ft_printf("'%05x'\n", 43);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
+	//exit(1);
 
 	test_count++;
 	r1 = printf("'%03x'\n", 0);
@@ -2040,11 +2041,12 @@ int main(void)
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
 
-	test_count++;
+	test_count++; // l.328
 	r1 = printf("'%08.5x'\n", 34);
 	r2 = ft_printf("'%08.5x'\n", 34);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
+	//exit(1);
 
 	test_count++;
 	r1 = printf("'%08.5x'\n", 0);
@@ -2070,23 +2072,25 @@ int main(void)
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
 
-	test_count++;
+	test_count++; // l.333
 	r1 = printf("'%.0x'\n", 0);
 	r2 = ft_printf("'%.0x'\n", 0);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
 
-	test_count++;
+	test_count++; // l.334
 	r1 = printf("'%.x'\n", 0);
 	r2 = ft_printf("'%.x'\n", 0);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
+	
 
-	test_count++;
+	test_count++; // l.335
 	r1 = printf("'%5.0x'\n", 0);
 	r2 = ft_printf("'%5.0x'\n", 0);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
+	//exit(1);
 
 	test_count++;
 	r1 = printf("'%5.x'\n", 0);
@@ -2719,14 +2723,14 @@ int main(void)
 	test(r1, r2);
 
 	test_count++;
-	r1 = printf("%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
-	r2 = ft_printf("%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	r1 = printf("'%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p'\n",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	r2 = ft_printf("'%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p,\n%70p'\n",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
 
 	test_count++;
-	r1 = printf("%5p%5p%5p%5p%5p%5p%5p%5p%5p%5p%5p%5p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
-	r2 = ft_printf("%5p%5p%5p%5p%5p%5p%5p%5p%5p%5p%5p%5p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	r1 = printf("'%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p'\n",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	r2 = ft_printf("'%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p,\n%5p'\n",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
 
@@ -3389,6 +3393,7 @@ int main(void)
 	r2 = ft_printf("p19 %.3x\n", 100);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
+	//exit(1);
 
 	test_count++;
 	r1 = printf("p20 %.0x\n", 0);
@@ -3402,7 +3407,7 @@ int main(void)
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
 
-	test_count++;
+	test_count++; // l.555
 	r1 = printf("p22 %.0x\n", 100);
 	r2 = ft_printf("p22 %.0x\n", 100);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
@@ -5039,11 +5044,8 @@ int main(void)
 	r2 = ft_printf("-->|%-16p|<-- ", (void*)0x1900);
 	printf("TEST.%i => return printf: %d | return ft_printf: %d\n\n", test_count, r1-3, r2-3);
 	test(r1, r2);
-
-
-
 	
 
-	printf("\e[32mSUCCESSFULLY PASSED ALL TESTS\e[0m\n");
+	printf("\e[32mSUCCESSFULLY PASSED ALL TESTS 😄\e[0m\n");
 	return 0;
 }

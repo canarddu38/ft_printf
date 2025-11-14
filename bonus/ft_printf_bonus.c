@@ -6,13 +6,13 @@
 /*   By: julcleme <julcleme@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 21:51:22 by julcleme          #+#    #+#             */
-/*   Updated: 2025/11/13 22:12:33 by julcleme         ###   ########lyon.fr   */
+/*   Updated: 2025/11/14 16:03:17 by julcleme         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-
+#include "stdio.h"
 int	print_format(t_format f, va_list args)
 {
 	unsigned int	i;
@@ -39,15 +39,50 @@ int	print_format(t_format f, va_list args)
 	{
 		i = (unsigned int)va_arg(args, unsigned int);
 		len = 0;
+		int pad_len = 0;
+		int	prec_len = 0;
+		int	num_len = 0;
+		char pad_char = ' ';
+		
 		if (f.flags[FLAG_HASHTAG])
 		{
 			len += 2;
 			ft_putchar_fd('0', 1);
 			ft_putchar_fd('X' + (32 * (f.type == 'x')), 1);
 		}
+		if (!f.flags[FLAG_MINUS] && f.flags[FLAG_ZERO] && f.precision == -1)
+			pad_char = '0';
+		num_len = len + hex_len(i);
+		//printf("\nprecision: %i, width: %i, num_len: %i, len: %i, hex_len: %i, prec_len: %i, pad_len: %i, flags: %s\n", f.precision, f.width, num_len, len, hex_len((unsigned long)i), prec_len, pad_len, f.flags);
+
+		if (f.precision > -1 && num_len > f.precision)
+			return (0);
+		if (f.width != WIDTH_UNRESTRICTED)
+			pad_len = f.width - max(num_len, f.precision);
+
+		if (f.precision != WIDTH_UNRESTRICTED)
+			prec_len = f.precision - num_len;
+
+		//printf("\nprecision: %i, width: %i, num_len: %i, prec_len: %i, pad_len: %i, flags: %s\n", f.precision, f.width, num_len, prec_len, pad_len, f.flags);
+		if (!f.flags[FLAG_MINUS])
+			len += ft_put_padding_rep(pad_len, pad_char);
+
+		len += ft_put_precision_rep(prec_len);
 		if (i == 0)
-			return (len + ft_putstr_count("0", f));
-		return (len + display_hex(i, (f.type == 'x')));
+		{
+			if (max(f.width, f.precision) != 0)
+				ft_putchar_fd('0', 1);
+			else
+				ft_putchar_fd(pad_char, 1);
+			len++;
+		}
+		else
+			len += display_hex(i, (f.type == 'x'));
+
+		if (f.flags[FLAG_MINUS])
+			len += ft_put_padding_rep(pad_len, pad_char);
+
+		return (len);
 	}
 	return (-1);
 }
