@@ -1,5 +1,4 @@
 NAME					= libftprintf.a
-CC						= clang
 SRC_DIR					= src
 BONUS_DIR				= bonus
 OBJ_DIR					= obj
@@ -44,7 +43,6 @@ $(BONUS_DONE): $(LIBFT) $(O_FILES_BONUS)
 	cp $(LIBFT) $(NAME)
 	ar -rcs $(NAME) $(O_FILES_BONUS)
 	touch $(BONUS_DONE)
-
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(SRC_DIR) -c $< -o $@
