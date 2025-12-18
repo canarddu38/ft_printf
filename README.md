@@ -1,6 +1,8 @@
 # ft_printf
 Because ft_putnbr() and ft_putstr() aren’t enough
 
+This project is part of the 42 curriculum.
+
 ## Format
 ```
     %[flags][width][.precision]type
@@ -29,8 +31,8 @@ Because ft_putnbr() and ft_putstr() aren’t enough
 - `%%` Prints a percent sign.
 
 ## TODO - Future improvements
-- [ ] handle flags for the bonus
-- [ ] handle invalid type input e.q. (ft_printf(`%c`, `ddd`);)
+- [x] handle flags for the bonus
+- [x] handle invalid type input e.q. (ft_printf(`%c`, `ddd`);)
 
 ## Know Bugs
 - [x] `%u` may have an underflow error (possible type cast issue).
